@@ -1,12 +1,13 @@
 import json
 import logging
 import sys
+import os
 from solapi import SolapiMessageService
 from solapi.model.message import Message
 
 # 환경 변수 또는 secrets로 관리하는 것이 안전합니다.
-API_KEY = 'NCSKTQHYNGTGMQNW'
-API_SECRET = 'NZDS6GWKHV7L6962MDRFTSAHVD4PHLEZ'
+API_KEY = os.environ.get('SOLAPI_API_KEY')
+API_SECRET = os.environ.get('SOLAPI_API_SECRET')
 
 def send_bulk_sms(json_path):
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
