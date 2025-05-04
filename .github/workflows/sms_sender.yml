@@ -1,0 +1,27 @@
+name: SMS Sender
+
+on:
+  push:
+    paths:
+      - 'sms-*.json'   # sms-로 시작하는 json 파일이 push될 때마다 실행
+
+jobs:
+  send_sms:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 저장소 체크아웃
+        uses: actions/checkout@v3
+
+      - name: 파이썬 환경 세팅
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: 의존성 설치
+        run: pip install -r requirements.txt
+
+      - name: 문자 일괄 발송
+        run: python solapi_sms_test.py $(ls sms-*.json | tail -n 1)
+        env:
+          SOLAPI_API_KEY: ${{ secrets.SOLAPI_API_KEY }}
+          SOLAPI_API_SECRET: ${{ secrets.SOLAPI_API_SECRET }}
