@@ -11,6 +11,9 @@ API_SECRET = os.environ.get('SOLAPI_API_SECRET')
 if not API_KEY or not API_SECRET:
       raise Exception("SOLAPI API KEY/SECRET 환경변수가 설정되어 있지 않습니다.")
 
+print(f"API_KEY is None? {API_KEY is None}")
+print(f"API_SECRET is None? {API_SECRET is None}")
+
 def send_bulk_sms(json_path):
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
     service = SolapiMessageService(API_KEY, API_SECRET)
